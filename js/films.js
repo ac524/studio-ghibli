@@ -1,3 +1,5 @@
+var filmResultsEl = $('#films-results');
+
 /**
  * Event Listeners
  */
@@ -7,7 +9,7 @@
 /**
  * API Requests
  */
-var getFilms = function (user) {
+var getFilms = function () {
     var apiUrl = 'https://ghibliapi.herokuapp.com/films';
 
     fetch(apiUrl)
@@ -40,7 +42,7 @@ function displayFilms( films ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <div class="card">
+          <div class="card" data-id="${film.id}">
             <div class="card-image">
               <figure class="image is-4by3">
                 <img src="${film.image}" alt="Placeholder image">
@@ -56,8 +58,14 @@ function displayFilms( films ) {
 
     }
 
-    $('#films-results').empty().html( htmlTemplate );
+    filmResultsEl.empty().html( htmlTemplate );
 
 }
 
 getFilms();
+
+filmResultsEl.on('click', '.card', function() {
+
+  document.location = `./film.html?filmId=${this.dataset.id}`
+
+});
