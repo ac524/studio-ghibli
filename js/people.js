@@ -32,13 +32,13 @@ function displayPeople( people ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <div class="card" data-id="${person.id}" style="height:100%">
+          <a class="card" href="./person.html?personId=${person.id}" style="height:100%">
             <div class="card-content">
               <div class="content">
                 <p class="title is-size-4">${person.name}</p>
               </div>
             </div>
-          </div>
+          </a>
         </div>`
 
     }
@@ -48,9 +48,3 @@ function displayPeople( people ) {
 }
 
 getPeople();
-
-peopleResultsEl.on('click', '.card', function() {
-
-  document.location = `./person.html?personId=${this.dataset.id}`
-
-});

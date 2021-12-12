@@ -32,7 +32,7 @@ function displayFilms( films ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <div class="card" data-id="${film.id}" style="height:100%">
+          <a class="is-block card" href={./film.html?filmId=${film.id}} style="height:100%">
             <div class="card-image">
               <figure class="image is-4by3">
                 <img src="${film.image}" alt="Placeholder image">
@@ -43,7 +43,7 @@ function displayFilms( films ) {
                 <p class="title is-4">${film.title}</p>
               </div>
             </div>
-          </div>
+          </a>
         </div>`
 
     }
@@ -53,9 +53,3 @@ function displayFilms( films ) {
 }
 
 getFilms();
-
-personResultsEl.on('click', '.card', function() {
-
-  document.location = `./film.html?filmId=${this.dataset.id}`
-
-});

@@ -69,12 +69,19 @@ function displayFilm( film, filmApiUrl ) {
     htmlTemplate += `
     <div class="section has-background-primary-light">
       <h2 class="is-size-3 has-text-weight-bold">Characters</h2>
+      <p>Click on a character to learn more!<p>
       <div class="columns is-multiline mt-5" id="persons-results"></div>
     </div>`;
 
     personResultsEl.html( htmlTemplate );
 
     personResultsEl = $('#persons-results');
+
+    personResultsEl.on('click', '.card', function() {
+
+      document.location = `./person.html?personId=${this.dataset.id}`
+    
+    });
 
     getPeople( film.people, filmApiUrl );
 
@@ -85,15 +92,13 @@ function displayPerson( person ) {
   personResultsEl.append(
     `
     <div class="column is-one-quarter">
-      <div class="card is-h-100" data-id="${person.id}">
+      <a class="is-flex is-align-items-center card is-h-100 is-rounded" href="./person.html?personId=${person.id}">
         <div class="card-content">
           <div class="content">
-            <p class="title is-size-4">${person.name}</p>
-            <p>Age: ${person.age}</p>
-            <p>Eye Color: ${person.eye_color}</p>
+            <p class="is-size-4">${person.name}</p>
           </div>
         </div>
-      </div>
+      </a>
     </div>`
   );
 
