@@ -16,48 +16,32 @@ var detectPersonIdQuery = function () {
  * API Requests
  */
 var getFilm = function ( id ) {
-    var apiUrl = `https://ghibliapi.herokuapp.com/films/${id}`;
+  var endpoint = `films/${id}`;
+  var apiUrl = ghibliApi.getEndpointUrl(endpoint);
+  ghibliApi
+      .route( apiUrl )
+      .then(function (data) {
 
-    fetch(apiUrl)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
+        displayFilm(data, apiUrl);
 
-                  displayFilm(data, apiUrl);
-
-                });
-            } else {
-                throw new Error('Error: ' + response.statusText);
-            }
-        })
-        .catch(function (error) {
-          console.log('Unable to fetch', error);
-        });
+      });
 };
 
 var getPeople = function ( personRoutes, filmApiUrl ) {
   for( apiRoute of personRoutes ) {
-    fetch(apiRoute)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
+    ghibliApi
+      .route( apiRoute )
+      .then(function (data) {
   
-                  if( Array.isArray(data) ) {
-                    for( var person of data ) {
-                      if( person.films.includes( filmApiUrl ) ) displayPerson( person );
-                    }
-                  } else {
-                    displayPerson(data); 
-                  }
-  
-                });
-            } else {
-              throw new Error('Error: ' + response.statusText);
-            }
-        })
-        .catch(function (error) {
-            console.log('Unable to fetch', error);
-        });
+        if( Array.isArray(data) ) {
+          for( var person of data ) {
+            if( person.films.includes( filmApiUrl ) ) displayPerson( person );
+          }
+        } else {
+          displayPerson(data); 
+        }
+
+      });
   }
 };
 

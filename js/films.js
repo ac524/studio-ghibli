@@ -10,23 +10,13 @@ var personResultsEl = $('#films-results');
  * API Requests
  */
 var getFilms = function () {
-    var apiUrl = 'https://ghibliapi.herokuapp.com/films';
+  ghibliApi
+    .endpoint( 'films' )
+    .then(function (data) {
 
-    fetch(apiUrl)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
+      displayFilms(data);
 
-                    displayFilms(data);
-
-                });
-            } else {
-              throw new Error('Error: ' + response.statusText);
-            }
-        })
-        .catch(function (error) {
-            console.log('Unable to fetch', error);
-        });
+    });
 };
 
 /**

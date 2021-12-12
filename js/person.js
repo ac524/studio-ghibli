@@ -15,23 +15,13 @@ var detectPersonIdQuery = function () {
  * API Requests
  */
 var getPerson = function ( id ) {
-    var apiUrl = `https://ghibliapi.herokuapp.com/people/${id}`;
+  ghibliApi
+    .endpoint( `people/${id}` )
+    .then(function (data) {
 
-    fetch(apiUrl)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
+      displayPerson(data);
 
-                  displayPerson(data);
-
-                });
-            } else {
-                throw new Error('Error: ' + response.statusText);
-            }
-        })
-        .catch(function (error) {
-          console.log('Unable to fetch', error);
-        });
+    });
 };
 
 /**
