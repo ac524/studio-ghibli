@@ -77,12 +77,6 @@ function displayFilm( film, filmApiUrl ) {
 
     personResultsEl = $('#persons-results');
 
-    personResultsEl.on('click', '.card', function() {
-
-      document.location = `./person.html?personId=${this.dataset.id}`
-    
-    });
-
     getPeople( film.people, filmApiUrl );
 
 }
