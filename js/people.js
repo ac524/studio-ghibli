@@ -32,7 +32,7 @@ function displayPeople( people ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <a class="card" href="./person.html?personId=${person.id}" style="height:100%">
+          <a class="is-block card" href="./person.html?personId=${person.id}" style="height:100%">
             <div class="card-content">
               <div class="content">
                 <p class="title is-size-4">${person.name}</p>
