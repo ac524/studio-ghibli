@@ -21,11 +21,11 @@ var getFilms = function () {
 
                 });
             } else {
-                alert('Error: ' + response.statusText);
+              throw new Error('Error: ' + response.statusText);
             }
         })
         .catch(function (error) {
-            alert('Unable to connect to GitHub');
+            console.log('Unable to fetch', error);
         });
 };
 
@@ -42,7 +42,7 @@ function displayFilms( films ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <div class="card" data-id="${film.id}">
+          <div class="card" data-id="${film.id}" style="height:100%">
             <div class="card-image">
               <figure class="image is-4by3">
                 <img src="${film.image}" alt="Placeholder image">

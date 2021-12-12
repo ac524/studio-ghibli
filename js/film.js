@@ -23,34 +23,40 @@ var getFilm = function ( id ) {
             if (response.ok) {
                 response.json().then(function (data) {
 
-                  displayFilm(data);
+                  displayFilm(data, apiUrl);
 
                 });
             } else {
-                alert('Error: ' + response.statusText);
+                throw new Error('Error: ' + response.statusText);
             }
         })
         .catch(function (error) {
-            alert('Unable to connect to GitHub');
+          console.log('Unable to fetch', error);
         });
 };
 
-var getPeople = function ( personRoutes ) {
+var getPeople = function ( personRoutes, filmApiUrl ) {
   for( apiRoute of personRoutes ) {
     fetch(apiRoute)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
   
-                  displayPerson(data);
+                  if( Array.isArray(data) ) {
+                    for( var person of data ) {
+                      if( person.films.includes( filmApiUrl ) ) displayPerson( person );
+                    }
+                  } else {
+                    displayPerson(data); 
+                  }
   
                 });
             } else {
-                alert('Error: ' + response.statusText);
+              throw new Error('Error: ' + response.statusText);
             }
         })
         .catch(function (error) {
-            alert('Unable to connect to GitHub');
+            console.log('Unable to fetch', error);
         });
   }
 };
@@ -58,7 +64,7 @@ var getPeople = function ( personRoutes ) {
 /**
  * Display
  */
-function displayFilm( film ) {
+function displayFilm( film, filmApiUrl ) {
 
     // Generating and appending HTML
     var htmlTemplate = "";
@@ -77,14 +83,16 @@ function displayFilm( film ) {
 
   
     htmlTemplate += `
-    <h2 class="subtitle">Characters</h2>
-    <div class="columns is-multiline mt-5" id="persons-results"></div>`;
+    <div class="section has-background-primary-light">
+      <h2 class="is-size-3 has-text-weight-bold">Characters</h2>
+      <div class="columns is-multiline mt-5" id="persons-results"></div>
+    </div>`;
 
     filmResultsEl.html( htmlTemplate );
 
     personResultsEl = $('#persons-results');
 
-    getPeople( film.people );
+    getPeople( film.people, filmApiUrl );
 
 }
 
@@ -93,10 +101,10 @@ function displayPerson( person ) {
   personResultsEl.append(
     `
     <div class="column is-one-quarter">
-      <div class="card" data-id="${person.id}">
+      <div class="card is-h-100" data-id="${person.id}">
         <div class="card-content">
           <div class="content">
-            <p class="title">${person.name}</p>
+            <p class="title is-size-4">${person.name}</p>
             <p>Age: ${person.age}</p>
             <p>Eye Color: ${person.eye_color}</p>
           </div>
