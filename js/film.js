@@ -1,21 +1,21 @@
-var filmResultsEl = $('#film-results');
+var personResultsEl = $('#film-results');
 var personResultsEl;
 
-var detectFilmIdQuery = function () {
+var detectPersonIdQuery = function () {
 
   var queryParams = new URLSearchParams( document.location.search );
 
   // Send them back to the films page if we got here incorrectly
   if( !queryParams.has( 'filmId' ) ) document.location = "./films.html";
 
-  getFilm( queryParams.get( 'filmId' ) );
+  getPerson( queryParams.get( 'filmId' ) );
 
 }
 
 /**
  * API Requests
  */
-var getFilm = function ( id ) {
+var getPerson = function ( id ) {
     var apiUrl = `https://ghibliapi.herokuapp.com/films/${id}`;
 
     fetch(apiUrl)
@@ -23,7 +23,7 @@ var getFilm = function ( id ) {
             if (response.ok) {
                 response.json().then(function (data) {
 
-                  displayFilm(data, apiUrl);
+                  displayPerson(data, apiUrl);
 
                 });
             } else {
@@ -64,7 +64,7 @@ var getPeople = function ( personRoutes, filmApiUrl ) {
 /**
  * Display
  */
-function displayFilm( film, filmApiUrl ) {
+function displayPerson( film, filmApiUrl ) {
 
     // Generating and appending HTML
     var htmlTemplate = "";
@@ -88,7 +88,7 @@ function displayFilm( film, filmApiUrl ) {
       <div class="columns is-multiline mt-5" id="persons-results"></div>
     </div>`;
 
-    filmResultsEl.html( htmlTemplate );
+    personResultsEl.html( htmlTemplate );
 
     personResultsEl = $('#persons-results');
 
@@ -115,4 +115,4 @@ function displayPerson( person ) {
 
 }
 
-detectFilmIdQuery();
+detectPersonIdQuery();

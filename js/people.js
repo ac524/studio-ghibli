@@ -1,4 +1,4 @@
-var personResultsEl = $('#films-results');
+var peopleResultsEl = $('#people-results');
 
 /**
  * Event Listeners
@@ -9,15 +9,15 @@ var personResultsEl = $('#films-results');
 /**
  * API Requests
  */
-var getFilms = function () {
-    var apiUrl = 'https://ghibliapi.herokuapp.com/films';
+var getPeople = function () {
+    var apiUrl = 'https://ghibliapi.herokuapp.com/people';
 
     fetch(apiUrl)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
 
-                    displayFilms(data);
+                  displayPeople(data);
 
                 });
             } else {
@@ -33,24 +33,19 @@ var getFilms = function () {
  * Display
  */
 
-function displayFilms( films ) {
+function displayPeople( people ) {
 
     // Generating and appending HTML
 
     var htmlTemplate = '';
-    for( film of films ) {
+    for( person of people ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <div class="card" data-id="${film.id}" style="height:100%">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img src="${film.image}" alt="Placeholder image">
-              </figure>
-            </div>
+          <div class="card" data-id="${person.id}" style="height:100%">
             <div class="card-content">
               <div class="content">
-                <p class="title is-4">${film.title}</p>
+                <p class="title is-size-4">${person.name}</p>
               </div>
             </div>
           </div>
@@ -58,14 +53,14 @@ function displayFilms( films ) {
 
     }
 
-    personResultsEl.empty().html( htmlTemplate );
+    peopleResultsEl.empty().html( htmlTemplate );
 
 }
 
-getFilms();
+getPeople();
 
-personResultsEl.on('click', '.card', function() {
+peopleResultsEl.on('click', '.card', function() {
 
-  document.location = `./film.html?filmId=${this.dataset.id}`
+  document.location = `./person.html?personId=${this.dataset.id}`
 
 });
