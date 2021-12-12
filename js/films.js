@@ -1,4 +1,4 @@
-var filmResultsEl = $('#films-results');
+var personResultsEl = $('#films-results');
 
 /**
  * Event Listeners
@@ -58,13 +58,13 @@ function displayFilms( films ) {
 
     }
 
-    filmResultsEl.empty().html( htmlTemplate );
+    personResultsEl.empty().html( htmlTemplate );
 
 }
 
 getFilms();
 
-filmResultsEl.on('click', '.card', function() {
+personResultsEl.on('click', '.card', function() {
 
   document.location = `./film.html?filmId=${this.dataset.id}`
 

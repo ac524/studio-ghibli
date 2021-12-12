@@ -59,8 +59,8 @@ function displayPeople( people ) {
 
 getPeople();
 
-// filmResultsEl.on('click', '.card', function() {
+peopleResultsEl.on('click', '.card', function() {
 
-//   document.location = `./film.html?filmId=${this.dataset.id}`
+  document.location = `./person.html?personId=${this.dataset.id}`
 
-// });
+});
