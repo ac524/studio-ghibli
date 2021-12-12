@@ -1,4 +1,4 @@
-var personResultsEl = $('#film-results');
+var filmResultsEl = $('#film-results');
 var personResultsEl;
 
 var detectPersonIdQuery = function () {
@@ -65,23 +65,26 @@ function displayFilm( film, filmApiUrl ) {
       </div>
     </div>`;
 
-  
-    htmlTemplate += `
-    <div class="section has-background-primary-light">
-      <h2 class="is-size-3 has-text-weight-bold">Characters</h2>
-      <p>Click on a character to learn more!<p>
-      <div class="columns is-multiline mt-5" id="persons-results"></div>
-    </div>`;
-
-    personResultsEl.html( htmlTemplate );
-
-    personResultsEl = $('#persons-results');
+    filmResultsEl.html( htmlTemplate );
 
     getPeople( film.people, filmApiUrl );
 
 }
 
 function displayPerson( person ) {
+
+  if( !personResultsEl ) {
+    var containerTemplate = `
+    <div class="section has-background-primary-light">
+      <h2 class="is-size-3 has-text-weight-bold">Characters</h2>
+      <p>Click on a character to learn more!<p>
+      <div class="columns is-multiline mt-5" id="persons-results"></div>
+    </div>`;
+
+    filmResultsEl.append( containerTemplate );
+  
+    personResultsEl = $('#persons-results');
+  }
 
   personResultsEl.append(
     `
