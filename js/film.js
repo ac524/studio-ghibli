@@ -8,14 +8,14 @@ var detectPersonIdQuery = function () {
   // Send them back to the films page if we got here incorrectly
   if( !queryParams.has( 'filmId' ) ) document.location = "./films.html";
 
-  getPerson( queryParams.get( 'filmId' ) );
+  getFilm( queryParams.get( 'filmId' ) );
 
 }
 
 /**
  * API Requests
  */
-var getPerson = function ( id ) {
+var getFilm = function ( id ) {
     var apiUrl = `https://ghibliapi.herokuapp.com/films/${id}`;
 
     fetch(apiUrl)
@@ -23,7 +23,7 @@ var getPerson = function ( id ) {
             if (response.ok) {
                 response.json().then(function (data) {
 
-                  displayPerson(data, apiUrl);
+                  displayFilm(data, apiUrl);
 
                 });
             } else {
@@ -64,7 +64,7 @@ var getPeople = function ( personRoutes, filmApiUrl ) {
 /**
  * Display
  */
-function displayPerson( film, filmApiUrl ) {
+function displayFilm( film, filmApiUrl ) {
 
     // Generating and appending HTML
     var htmlTemplate = "";
