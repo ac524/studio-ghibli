@@ -32,7 +32,7 @@ function displayFilms( films ) {
 
         htmlTemplate += `
         <div class="column is-one-quarter">
-          <a class="is-block card" href={./film.html?filmId=${film.id}} style="height:100%">
+          <a class="is-block card" href="./film.html?filmId=${film.id}" style="height:100%">
             <div class="card-image">
               <figure class="image is-4by3">
                 <img src="${film.image}" alt="Placeholder image">
