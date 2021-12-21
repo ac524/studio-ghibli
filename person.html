@@ -52,7 +52,13 @@
           <li><a href="./people.html">Characters</a></li>
         </ul>
       </nav>
-      <div id="person-results"></div>
+      <div class="columns">
+        <div id="person-results" class="column"></div>
+        <div id="film-results-container" class="column is-hidden">
+          <h2 class="subtitle">Find <span class="person-name"></span> in</h2>
+          <div id="film-results" class="columns is-multiline"></div>
+        </div>
+      </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./js/common.js"></script>
